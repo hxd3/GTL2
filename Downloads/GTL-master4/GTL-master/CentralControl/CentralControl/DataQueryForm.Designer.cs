@@ -253,7 +253,7 @@
             this.logicTypeComboBox.FormattingEnabled = true;
             this.logicTypeComboBox.Location = new System.Drawing.Point(113, 40);
             this.logicTypeComboBox.Name = "logicTypeComboBox";
-            this.logicTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.logicTypeComboBox.Size = new System.Drawing.Size(266, 21);
             this.logicTypeComboBox.TabIndex = 3;
             // 
             // label5
@@ -271,7 +271,7 @@
             this.dataTableComboBox.FormattingEnabled = true;
             this.dataTableComboBox.Location = new System.Drawing.Point(113, 7);
             this.dataTableComboBox.Name = "dataTableComboBox";
-            this.dataTableComboBox.Size = new System.Drawing.Size(121, 21);
+            this.dataTableComboBox.Size = new System.Drawing.Size(266, 21);
             this.dataTableComboBox.TabIndex = 1;
             this.dataTableComboBox.SelectedIndexChanged += new System.EventHandler(this.dataTableComboBox_SelectedIndexChanged);
             // 

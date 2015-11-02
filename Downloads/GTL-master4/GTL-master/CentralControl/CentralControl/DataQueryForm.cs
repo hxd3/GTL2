@@ -21,10 +21,11 @@ namespace CentralControl
 
         protected void display()
         {
+            DBUtil mydb = new DBUtil();
             if (!where.Equals(""))
-                textBox1.Text = "select " + select + " from " + dataTableComboBox.Text + " where " + where;
+                textBox1.Text = "select " + select + " from " + mydb.chinesetoenglish[dataTableComboBox.Text] + " where " + where;
             else
-                textBox1.Text = "select " + select + " from " + dataTableComboBox.Text;
+                textBox1.Text = "select " + select + " from " + mydb.chinesetoenglish[dataTableComboBox.Text];
         }
 
 
@@ -58,17 +59,17 @@ namespace CentralControl
         {
             Control.CheckForIllegalCrossThreadCalls = false;
             FatherForm.Enabled = false;
-
-            ArrayList list = DBUtil.getTableList();
+            DBUtil mydb = new DBUtil();
+            ArrayList list = mydb.getTableList();
             dataTableComboBox.Items.Clear();
             foreach (String s in list)
             {
-                dataTableComboBox.Items.Add(s);
+                dataTableComboBox.Items.Add(mydb.englishtochinese[s]);
             }
             dataTableComboBox.SelectedIndex = 0;
             segmentComboBox.Items.Clear();
-            segmentComboBox.Items.Add("CurrentTime");
-            segmentComboBox.Items.Add("Device_Id");
+            segmentComboBox.Items.Add("数据插入时间");
+            segmentComboBox.Items.Add("仪器标识");
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -83,12 +84,13 @@ namespace CentralControl
 
         private void dataTableComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DBUtil mydb=new DBUtil();
             String tableName = dataTableComboBox.SelectedItem.ToString();
-            ArrayList list = DBUtil.getTableColumns(tableName);
+            ArrayList list = mydb.getTableColumns(mydb.chinesetoenglish[tableName]);
             filtercombobox.Items.Clear();
             foreach (String s in list) 
             {
-                filtercombobox.Items.Add(s);
+                filtercombobox.Items.Add(mydb.englishtochinese[s]);
             }
             if(list.Count > 0) filtercombobox.SelectedIndex = 0;
             textBox1.Text = "";
@@ -96,9 +98,10 @@ namespace CentralControl
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            DBUtil mydb = new DBUtil();
             if (opValueTextBox.Text.Equals("")) return;
             String con = "";
-            con = segmentComboBox.SelectedItem.ToString() + " " + operationTypeComboBox.SelectedItem.ToString() + " '" + opValueTextBox.Text + "' ";
+            con = mydb.chinesetoenglish[segmentComboBox.SelectedItem.ToString()] + " " + operationTypeComboBox.SelectedItem.ToString() + " '" + opValueTextBox.Text + "' ";
             String opStr = "and";
             if (logicTypeComboBox.SelectedIndex > 0) opStr = "or";
             if (where.Equals("")) where = con;
@@ -122,7 +125,7 @@ namespace CentralControl
             for (int i = 0; i < colList.Count; i++)
             {
                 ColumnHeader header = new ColumnHeader();
-                header.Text = (String)colList[i];
+                header.Text = mydb.englishtochinese[(String)colList[i]];
                 searchResultListView.Columns.Add(header);
             }
 
@@ -141,7 +144,8 @@ namespace CentralControl
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String con = filtercombobox.Text;
+            DBUtil mydb=new DBUtil();
+            String con = mydb.chinesetoenglish[filtercombobox.Text];
             if (select.Equals("")) select = con;
             else select = select+" , " + con;
             display();
